@@ -59,4 +59,15 @@ public class CitizensApplication {
         }
         return groupedByName;
     }
+
+    public List<Person> filterWithAgeBetween35and55(List<Person> personList) {
+        List<Person> filteredPeople = new ArrayList<>();
+        for (Person person : personList) {
+            Integer age = person.getAge();
+            if (age >= 35 && age <= 55) {
+                filteredPeople.add(person);
+            }
+        }
+        return filteredPeople;
+    }
 }
