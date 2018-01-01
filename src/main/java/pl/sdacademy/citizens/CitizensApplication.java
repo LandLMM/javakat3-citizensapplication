@@ -53,15 +53,9 @@ public class CitizensApplication {
     public Map<String,List<Person>> groupByName(List<Person> personList) {
         Map<String,List<Person>> groupedByName = new HashMap<>();
         for (Person person : personList) {
-            if (!groupedByName.containsKey(person.getName())) {
-                List<Person> listOfPeopleWithTheSameName = new ArrayList<>();
-                listOfPeopleWithTheSameName.add(person);
-                groupedByName.put(person.getName(), listOfPeopleWithTheSameName);
-            } else {
-                List<Person> listOfPeopleWithTheSameName = groupedByName.get(person.getName());
-                listOfPeopleWithTheSameName.add(person);
-                groupedByName.put(person.getName(), listOfPeopleWithTheSameName);
-            }
+            List<Person> listOfPeopleWithTheSameName = groupedByName.getOrDefault(person.getName(), new ArrayList<>());
+            listOfPeopleWithTheSameName.add(person);
+            groupedByName.put(person.getName(), listOfPeopleWithTheSameName);
         }
         return groupedByName;
     }
