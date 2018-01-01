@@ -1,15 +1,18 @@
 package pl.sdacademy.citizens.model;
 
+import java.beans.Transient;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Person {
+    private final static long YEAR_IN_MILLISECONDS = (long) 1000 * 60 * 60 * 24 * 365;
     private Long id;
     private String name;
     private String lastName;
     private String sex;
     private Date birthDate;
+    private Integer age;
 
     public Person() {
     }
@@ -21,6 +24,7 @@ public class Person {
         lastName = line.getElementAt(2);
         sex = line.getElementAt(3);
         birthDate = dateFormat.parse(line.getElementAt(4));
+        age = (int) ((System.currentTimeMillis() - birthDate.getTime()) / YEAR_IN_MILLISECONDS);
     }
 
     public Long getId() {
@@ -61,5 +65,10 @@ public class Person {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+    }
+
+    @Transient
+    public Integer getAge() {
+        return age;
     }
 }
