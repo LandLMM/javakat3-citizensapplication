@@ -70,4 +70,22 @@ public class CitizensApplication {
         }
         return filteredPeople;
     }
+
+    public Long countPossiblyRetired(List<Person> personList) {
+        Long possiblyRetired = 0L;
+        for (Person person : personList) {
+            if (possiblyRetiredFemale(person) || possiblyRetiredMale(person)) {
+                possiblyRetired++;
+            }
+        }
+        return possiblyRetired;
+    }
+
+    private boolean possiblyRetiredFemale(Person person) {
+        return "F".equals(person.getSex()) && person.getAge() >= 60;
+    }
+
+    private boolean possiblyRetiredMale(Person person) {
+        return "M".equals(person.getSex()) && person.getAge() >= 65;
+    }
 }
