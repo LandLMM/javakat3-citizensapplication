@@ -113,4 +113,42 @@ public class CitizensApplicationTest {
         assertTrue(filteredPeople.contains(person4));
     }
 
+    @Test
+    public void shouldCountPeopleThatCanBeRetired() throws ParseException {
+        Person person1 = mock(Person.class);
+        when(person1.getAge()).thenReturn(59);
+        when(person1.getSex()).thenReturn("F");
+        Person person2 = mock(Person.class);
+        when(person2.getAge()).thenReturn(60);
+        when(person2.getSex()).thenReturn("F");
+        Person person3 = mock(Person.class);
+        when(person3.getAge()).thenReturn(61);
+        when(person3.getSex()).thenReturn("F");
+        Person person4 = mock(Person.class);
+        when(person4.getAge()).thenReturn(64);
+        when(person4.getSex()).thenReturn("M");
+        Person person5 = mock(Person.class);
+        when(person5.getAge()).thenReturn(65);
+        when(person5.getSex()).thenReturn("M");
+        Person person6 = mock(Person.class);
+        when(person6.getAge()).thenReturn(66);
+        when(person6.getSex()).thenReturn("M");
+        Person person7 = mock(Person.class);
+        when(person7.getAge()).thenReturn(99);
+        when(person7.getSex()).thenReturn("X");
+        List<Person> personList = new ArrayList<>();
+        personList.add(person1);
+        personList.add(person2);
+        personList.add(person3);
+        personList.add(person4);
+        personList.add(person5);
+        personList.add(person6);
+        personList.add(person7);
+
+        Long possiblyRetired = citizensApplication.countPossiblyRetired(personList);
+
+        assertNotNull(possiblyRetired);
+        assertEquals((Long) 4L, possiblyRetired);
+    }
+
 }
