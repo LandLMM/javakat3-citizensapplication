@@ -4,6 +4,7 @@ import pl.sdacademy.citizens.model.Person;
 
 import java.io.File;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,5 +48,21 @@ public class CitizensApplication {
             countedByLastName.merge(person.getLastName(), 1L, (previousCount, countToAdd) -> previousCount + countToAdd);
         }
         return countedByLastName;
+    }
+
+    public Map<String,List<Person>> groupByName(List<Person> personList) {
+        Map<String,List<Person>> groupedByName = new HashMap<>();
+        for (Person person : personList) {
+            if (!groupedByName.containsKey(person.getName())) {
+                List<Person> listOfPeopleWithTheSameName = new ArrayList<>();
+                listOfPeopleWithTheSameName.add(person);
+                groupedByName.put(person.getName(), listOfPeopleWithTheSameName);
+            } else {
+                List<Person> listOfPeopleWithTheSameName = groupedByName.get(person.getName());
+                listOfPeopleWithTheSameName.add(person);
+                groupedByName.put(person.getName(), listOfPeopleWithTheSameName);
+            }
+        }
+        return groupedByName;
     }
 }
