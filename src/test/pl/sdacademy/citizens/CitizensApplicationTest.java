@@ -51,4 +51,35 @@ public class CitizensApplicationTest {
         assertEquals((Long) 1L, peopleCountByLastName.get("LastName-3"));
     }
 
+    @Test
+    public void shouldBeAbleToGroupPersonByName() {
+        Person person1 = mock(Person.class);
+        when(person1.getName()).thenReturn("Name-1");
+        Person person2 = mock(Person.class);
+        when(person2.getName()).thenReturn("Name-2");
+        Person person3 = mock(Person.class);
+        when(person3.getName()).thenReturn("Name-3");
+        Person person4 = mock(Person.class);
+        when(person4.getName()).thenReturn("Name-3");
+        Person person5 = mock(Person.class);
+        when(person5.getName()).thenReturn("Name-4");
+        Person person6 = mock(Person.class);
+        when(person6.getName()).thenReturn("Name-4");
+        List<Person> personList = new ArrayList<>();
+        personList.add(person1);
+        personList.add(person2);
+        personList.add(person3);
+        personList.add(person4);
+        personList.add(person5);
+        personList.add(person6);
+
+        Map<String, List<Person>> peopleGroupedByName = citizensApplication.groupByName(personList);
+
+        assertNotNull(peopleGroupedByName);
+        assertEquals(1, peopleGroupedByName.get("Name-1").size());
+        assertEquals(1, peopleGroupedByName.get("Name-2").size());
+        assertEquals(2, peopleGroupedByName.get("Name-3").size());
+        assertEquals(2, peopleGroupedByName.get("Name-4").size());
+    }
+
 }
