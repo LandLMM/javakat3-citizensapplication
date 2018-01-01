@@ -44,9 +44,7 @@ public class CitizensApplication {
     public Map<String,Long> countByLastName(List<Person> personList) {
         Map<String,Long> countedByLastName = new HashMap<>();
         for (Person person : personList) {
-            Long otherPeopleWithTheSameLastName = countedByLastName.getOrDefault(person.getLastName(), 0L);
-            otherPeopleWithTheSameLastName++;
-            countedByLastName.put(person.getLastName(), otherPeopleWithTheSameLastName);
+            countedByLastName.merge(person.getLastName(), 1L, (previousCount, countToAdd) -> previousCount + countToAdd);
         }
         return countedByLastName;
     }
