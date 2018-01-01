@@ -4,9 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import pl.sdacademy.citizens.model.Person;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -80,6 +80,37 @@ public class CitizensApplicationTest {
         assertEquals(1, peopleGroupedByName.get("Name-2").size());
         assertEquals(2, peopleGroupedByName.get("Name-3").size());
         assertEquals(2, peopleGroupedByName.get("Name-4").size());
+    }
+
+    @Test
+    public void shouldBeAbleToFilterByAge() throws ParseException {
+        Person person1 = mock(Person.class);
+        when(person1.getAge()).thenReturn(25);
+        Person person2 = mock(Person.class);
+        when(person2.getAge()).thenReturn(35);
+        Person person3 = mock(Person.class);
+        when(person3.getAge()).thenReturn(45);
+        Person person4 = mock(Person.class);
+        when(person4.getAge()).thenReturn(55);
+        Person person5 = mock(Person.class);
+        when(person5.getAge()).thenReturn(65);
+        Person person6 = mock(Person.class);
+        when(person6.getAge()).thenReturn(75);
+        List<Person> personList = new ArrayList<>();
+        personList.add(person1);
+        personList.add(person2);
+        personList.add(person3);
+        personList.add(person4);
+        personList.add(person5);
+        personList.add(person6);
+
+        List<Person> filteredPeople = citizensApplication.filterWithAgeBetween35and55(personList);
+
+        assertNotNull(filteredPeople);
+        assertEquals(3, filteredPeople.size());
+        assertTrue(filteredPeople.contains(person2));
+        assertTrue(filteredPeople.contains(person3));
+        assertTrue(filteredPeople.contains(person4));
     }
 
 }
