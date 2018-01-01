@@ -39,4 +39,19 @@ public class CitizensApplication {
         }
         return nameCount;
     }
+
+
+    public Map<String,Long> countByLastName(List<Person> personList) {
+        Map<String,Long> countedByLastName = new HashMap<>();
+        for (Person person : personList) {
+            if (!countedByLastName.containsKey(person.getLastName())) {
+                countedByLastName.put(person.getLastName(), 1L);
+            } else {
+                Long countedPeople = countedByLastName.get(person.getLastName());
+                countedPeople++;
+                countedByLastName.put(person.getLastName(), countedPeople);
+            }
+        }
+        return countedByLastName;
+    }
 }
