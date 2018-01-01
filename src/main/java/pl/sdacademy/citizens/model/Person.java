@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Person {
+    private final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     private final static long YEAR_IN_MILLISECONDS = (long) 1000 * 60 * 60 * 24 * 365;
     private Long id;
     private String name;
@@ -18,12 +19,11 @@ public class Person {
     }
 
     public Person(CsvLine line) throws ParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         id = Long.parseLong(line.getElementAt(0));
         name = line.getElementAt(1);
         lastName = line.getElementAt(2);
         sex = line.getElementAt(3);
-        birthDate = dateFormat.parse(line.getElementAt(4));
+        birthDate = DATE_FORMAT.parse(line.getElementAt(4));
         age = (int) ((System.currentTimeMillis() - birthDate.getTime()) / YEAR_IN_MILLISECONDS);
     }
 
