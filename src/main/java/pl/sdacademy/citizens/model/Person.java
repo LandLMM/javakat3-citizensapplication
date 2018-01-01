@@ -8,22 +8,19 @@ import java.util.Date;
 public class Person {
     private final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     private final static long YEAR_IN_MILLISECONDS = (long) 1000 * 60 * 60 * 24 * 365;
-    private Long id;
-    private String name;
-    private String lastName;
-    private String sex;
-    private Date birthDate;
-    private Integer age;
+    private final Long id;
+    private final String name;
+    private final String lastName;
+    private final String sex;
+    private final Date birthDate;
+    private final Integer age;
 
-    public Person() {
-    }
-
-    public Person(CsvLine line) throws ParseException {
-        id = Long.parseLong(line.getElementAt(0));
-        name = line.getElementAt(1);
-        lastName = line.getElementAt(2);
-        sex = line.getElementAt(3);
-        birthDate = DATE_FORMAT.parse(line.getElementAt(4));
+    private Person(Builder builder) throws ParseException {
+        id = builder.id;
+        name = builder.name;
+        lastName = builder.lastName;
+        sex = builder.sex;
+        birthDate = DATE_FORMAT.parse(builder.birthDate);
         age = (int) ((System.currentTimeMillis() - birthDate.getTime()) / YEAR_IN_MILLISECONDS);
     }
 
@@ -31,44 +28,68 @@ public class Person {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public String getSex() {
         return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
     }
 
     public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
     @Transient
     public Integer getAge() {
         return age;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private Long id;
+        private String name;
+        private String lastName;
+        private String sex;
+        private String birthDate;
+
+        private Builder() {
+        }
+
+        public Builder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder lastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public Builder sex(String sex) {
+            this.sex = sex;
+            return this;
+        }
+
+        public Builder birthDate(String birthDate) {
+            this.birthDate = birthDate;
+            return this;
+        }
+
+        public Person build() throws ParseException {
+            return new Person(this);
+        }
     }
 }
