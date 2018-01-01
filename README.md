@@ -19,29 +19,30 @@ Aplikację uruchamia się z klasy pl.sdacademy.citizens.Main. Klasa Main tworzy 
 Zadania starałem się posortować po poziomie trudności.
 
 ## Zadania
-* W klasie CitizensApplication napisz metodę, która będzie zliczać, ile jest osób z danym nazwiskiem.
-* W klasie CitizensApplication napisz metodę, która będzie grupować obiekty klasy Person po imieniu.
-* W klasie CitizensApplication napisz metodę, która będzie filtrować osoby tak, aby zostały tylko te mające więcej niż 35 oraz mniej niż 55 lat.
-* W klasie CitizensApplication napisz metodę, która policzy osoby mogące ubiegać się o emeryturę (60 lat dla kobiet oraz 65 dla mężczyzn)
-* Utworzone metody (oraz jedną istniejącą) wydziel do nowej klasy - jak nazwiesz tę klasę?
-* Korzystając ze Stream API, spróbuj przepisać metody w nowej, wydzielonej klasie tak, aby miały jak najmniejszą objętość. Możesz posiłkować się wydzielaniem zagnieżdżonych metod.
-* W konstruktorze klasy Person jest tworzony obiekt typu SimpleDateFormat. Jest to kosztowna operacja, spróbuj więc jakoś zoptymalizować to miejsce. Po przetworzeniu wyników wyświetlany jest czas wykonywania konwersji - po prostej optymalizacji na moim komputerze udało przyśpieszyć się ten proces o połowę.
-* Zaimplementuj wzorzec Builder dla klasy Person.
-* Dodaj walidację wczytanych danych klasy Person:
-  - Imię nie może być puste oraz nie może być krótsze niż 2 znaki
-  - Nazwisko nie może być puste oraz nie może być krótsze niż 2 znaki
-  - Płeć musi zawierać tylko jeden z następujących znaków: "F" albo "M"
-  - Data urodzenia nie może być z przyszłości
-  - Osoba musi być pełnoletnia
-Niepoprawne wyniki odrzuć.
-* Zaimplementuj klasę Animal - niech zawiera imię oraz gatunek zwierzęcia. Dodaj listę posiadanych zwierząt do klasy Person.
-* Napisz klasę AnimalReader, która będzie odczytywała plik animal.csv
-* Policz, ile jest zwierząt każdego z gatunków
-* Znajdź wszystkie osoby, które mają conajmniej 2 zwierzęta
-* Przepisz walidację wczytywanych danych tak, aby używała wzorca projektówego (odpowiedni wzorzec był omawiany na prezentacji)
-* Dopisz do klas CsvFile oraz CsvLine metody umożliwiające zapis pliku CSV na dysku
-* Wygeneruj plik z danymi osób, które nie przeszły walidacji (taki sam rekord jak w pliku wejściowym), dodając do niego informację o powodzie odrzucenia
-* Wczytaj plik person.csv oraz animal.csv, a następnie zapisz plik wynikowy, który będzie zawierał:
+1. W klasie CitizensApplication napisz metodę, która będzie zliczać, ile jest osób z danym nazwiskiem.
+2. W klasie CitizensApplication napisz metodę, która będzie grupować obiekty klasy Person po imieniu.
+3. W klasie CitizensApplication napisz metodę, która będzie filtrować osoby tak, aby zostały tylko te mające więcej niż 35 oraz mniej niż 55 lat.
+4. W klasie CitizensApplication napisz metodę, która policzy osoby mogące ubiegać się o emeryturę (60 lat dla kobiet oraz 65 dla mężczyzn)
+5. Utworzone metody (oraz jedną istniejącą) wydziel do nowej klasy - jak nazwiesz tę klasę?
+6. Korzystając ze Stream API, spróbuj przepisać metody w nowej, wydzielonej klasie tak, aby miały jak najmniejszą objętość. Możesz posiłkować się wydzielaniem zagnieżdżonych metod.
+7. W konstruktorze klasy Person jest tworzony obiekt typu SimpleDateFormat. Jest to kosztowna operacja, spróbuj więc jakoś zoptymalizować to miejsce. Po przetworzeniu wyników wyświetlany jest czas wykonywania konwersji - po prostej optymalizacji na moim komputerze udało przyśpieszyć się ten proces o połowę.
+8. Zaimplementuj wzorzec Builder dla klasy Person.
+9. Dodaj walidację wczytanych danych klasy Person:
+   - Imię nie może być puste oraz nie może być krótsze niż 2 znaki
+   - Nazwisko nie może być puste oraz nie może być krótsze niż 2 znaki
+   - Płeć musi zawierać tylko jeden z następujących znaków: "F" albo "M"
+   - Data urodzenia nie może być z przyszłości
+   - Osoba musi być pełnoletnia
+   
+    Niepoprawne wyniki odrzuć.
+10. Zaimplementuj klasę Animal - niech zawiera imię oraz gatunek zwierzęcia. Dodaj listę posiadanych zwierząt do klasy Person.
+11. Napisz klasę AnimalReader, która będzie odczytywała plik animal.csv
+12. Policz, ile jest zwierząt każdego z gatunków
+13. Znajdź wszystkie osoby, które mają conajmniej 2 zwierzęta
+14. Przepisz walidację wczytywanych danych tak, aby używała wzorca projektówego (odpowiedni wzorzec był omawiany na prezentacji)
+15. Dopisz do klas CsvFile oraz CsvLine metody umożliwiające zapis pliku CSV na dysku
+16. Wygeneruj plik z danymi osób, które nie przeszły walidacji (taki sam rekord jak w pliku wejściowym), dodając do niego informację o powodzie odrzucenia
+17. Wczytaj plik person.csv oraz animal.csv, a następnie zapisz plik wynikowy, który będzie zawierał:
 	- ID osoby
 	- Imię
 	- Utajnione nazwisko: Pierwsza litera nazwiska, pięć znaków `*`, ostatnia litera nazwiska (`Kowalski` -> `K*****i`; `Nowak` -> `N*****k`)
