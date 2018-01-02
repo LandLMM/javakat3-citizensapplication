@@ -23,12 +23,13 @@ public class CitizensApplication {
     }
 
     public void process() throws ParseException {
-        File personFile = new File(getClass().getClassLoader().getResource("person.csv").getFile());
-        List<Person> people = personReader.readFromFile(personFile);
-        PersonListDecorator personListDecorator = new PersonListDecorator(people);
-
         File animalFile = new File(getClass().getClassLoader().getResource("animal.csv").getFile());
         List<Animal> animals = animalReader.readFromFile(animalFile);
+
+        File personFile = new File(getClass().getClassLoader().getResource("person.csv").getFile());
+        List<Person> people = personReader.readFromFile(personFile, animals);
+        PersonListDecorator personListDecorator = new PersonListDecorator(people);
+
 
         Map<String, Long> nameSummary = personListDecorator.createNameSummary();
         // sample: how to print results to the console
