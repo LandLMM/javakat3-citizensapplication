@@ -4,7 +4,9 @@ import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -27,8 +29,9 @@ public class PersonTest {
         String lastName = "SampleLastName";
         String sex = "M";
         String birthDate = "1988-04-09";
+        List<Animal> animals = new ArrayList<Animal>() {{add(mock(Animal.class));}};
 
-        Person person = Person.builder().id(id).name(name).lastName(lastName).sex(sex).birthDate(birthDate).build();
+        Person person = Person.builder().id(id).name(name).lastName(lastName).sex(sex).birthDate(birthDate).animals(animals).build();
 
         assertNotNull(person);
         assertEquals(id, person.getId());
@@ -36,6 +39,7 @@ public class PersonTest {
         assertEquals(lastName, person.getLastName());
         assertEquals(sex, person.getSex());
         assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse(birthDate), person.getBirthDate());
+        assertEquals(animals.size(), person.getAnimals().size());
     }
 
 }

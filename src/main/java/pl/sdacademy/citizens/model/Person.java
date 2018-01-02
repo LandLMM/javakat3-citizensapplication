@@ -3,7 +3,9 @@ package pl.sdacademy.citizens.model;
 import java.beans.Transient;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Person {
     private final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
@@ -14,6 +16,7 @@ public class Person {
     private final String sex;
     private final Date birthDate;
     private final Integer age;
+    private final List<Animal> animals;
 
     private Person(Builder builder) throws ParseException {
         id = builder.id;
@@ -21,6 +24,7 @@ public class Person {
         lastName = builder.lastName;
         sex = builder.sex;
         birthDate = DATE_FORMAT.parse(builder.birthDate);
+        animals = new ArrayList<>(builder.animals);
         age = (int) ((System.currentTimeMillis() - birthDate.getTime()) / YEAR_IN_MILLISECONDS);
     }
 
@@ -44,6 +48,10 @@ public class Person {
         return birthDate;
     }
 
+    public List<Animal> getAnimals() {
+        return animals;
+    }
+
     @Transient
     public Integer getAge() {
         return age;
@@ -59,6 +67,7 @@ public class Person {
         private String lastName;
         private String sex;
         private String birthDate;
+        private List<Animal> animals = new ArrayList<>();
 
         private Builder() {
         }
@@ -85,6 +94,11 @@ public class Person {
 
         public Builder birthDate(String birthDate) {
             this.birthDate = birthDate;
+            return this;
+        }
+
+        public Builder animals(List<Animal> animals) {
+            this.animals = animals;
             return this;
         }
 
