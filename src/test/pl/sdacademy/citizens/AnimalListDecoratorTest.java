@@ -40,4 +40,32 @@ public class AnimalListDecoratorTest {
         assertEquals((Long) 3L, animalsByGenre.get("Genre-2"));
         assertEquals((Long) 1L, animalsByGenre.get("Genre-3"));
     }
+
+    @Test
+    public void shouldGroupAnimalsById() {
+        Animal animal1 = mock(Animal.class);
+        when(animal1.getId()).thenReturn(1L);
+        Animal animal2 = mock(Animal.class);
+        when(animal2.getId()).thenReturn(1L);
+        Animal animal3 = mock(Animal.class);
+        when(animal3.getId()).thenReturn(2L);
+        Animal animal4 = mock(Animal.class);
+        when(animal4.getId()).thenReturn(2L);
+        Animal animal5 = mock(Animal.class);
+        when(animal5.getId()).thenReturn(3L);
+        List<Animal> animals = new ArrayList<>();
+        animals.add(animal1);
+        animals.add(animal2);
+        animals.add(animal3);
+        animals.add(animal4);
+        animals.add(animal5);
+
+        AnimalListDecorator animalListDecorator = new AnimalListDecorator(animals);
+        Map<Long, List<Animal>> animalsById = animalListDecorator.groupById();
+
+        assertNotNull(animalsById);
+        assertEquals(2, animalsById.get(1L).size());
+        assertEquals(2, animalsById.get(2L).size());
+        assertEquals(1, animalsById.get(3L).size());
+    }
 }

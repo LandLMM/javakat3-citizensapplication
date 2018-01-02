@@ -18,4 +18,8 @@ public class AnimalListDecorator extends ArrayList<Animal> {
     public Map<String, Long> countByGenre() {
         return stream().collect(Collectors.groupingBy(Animal::getGenre, Collectors.counting()));
     }
+
+    public Map<Long, List<Animal>> groupById() {
+        return stream().collect(Collectors.groupingBy(Animal::getId, Collectors.toList()));
+    }
 }
