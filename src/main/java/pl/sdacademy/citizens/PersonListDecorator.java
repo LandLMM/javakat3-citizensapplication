@@ -42,4 +42,8 @@ public class PersonListDecorator extends ArrayList<Person> {
     private boolean possiblyRetiredMale(Person person) {
         return "M".equals(person.getSex()) && person.getAge() >= 65;
     }
+
+    public List<Person> filterWithAtLeastTwoAnimals() {
+        return stream().filter(person -> person.getAnimals().size() >= 2).collect(Collectors.toList());
+    }
 }

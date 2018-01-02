@@ -1,6 +1,7 @@
 package pl.sdacademy.citizens;
 
 import org.junit.Test;
+import pl.sdacademy.citizens.model.Animal;
 import pl.sdacademy.citizens.model.Person;
 
 import java.text.ParseException;
@@ -154,6 +155,38 @@ public class PersonListDecoratorTest {
 
         assertNotNull(possiblyRetired);
         assertEquals((Long) 4L, possiblyRetired);
+    }
+
+    @Test
+    public void shouldFindPeopleWithAtLeastTwoAnimals() {
+        Person person1 = mock(Person.class);
+        when(person1.getAnimals()).thenReturn(new ArrayList<>());
+        Person person2 = mock(Person.class);
+        when(person2.getAnimals()).thenReturn(new ArrayList<Animal>() {{add(mock(Animal.class));}});
+        Person person3 = mock(Person.class);
+        when(person3.getAnimals()).thenReturn(new ArrayList<Animal>() {{add(mock(Animal.class));add(mock(Animal.class));}});
+        Person person4 = mock(Person.class);
+        when(person4.getAnimals()).thenReturn(new ArrayList<Animal>() {{add(mock(Animal.class));add(mock(Animal.class));add(mock(Animal.class));}});
+        Person person5 = mock(Person.class);
+        when(person5.getAnimals()).thenReturn(new ArrayList<Animal>() {{add(mock(Animal.class));add(mock(Animal.class));}});
+        Person person6 = mock(Person.class);
+        when(person6.getAnimals()).thenReturn(new ArrayList<>());
+        List<Person> personList = new ArrayList<>();
+        personList.add(person1);
+        personList.add(person2);
+        personList.add(person3);
+        personList.add(person4);
+        personList.add(person5);
+        personList.add(person6);
+
+        PersonListDecorator personListDecorator = new PersonListDecorator(personList);
+        List<Person> animalLovers = personListDecorator.filterWithAtLeastTwoAnimals();
+
+        assertNotNull(animalLovers);
+        assertEquals(3, animalLovers.size());
+        assertTrue(animalLovers.contains(person3));
+        assertTrue(animalLovers.contains(person4));
+        assertTrue(animalLovers.contains(person5));
     }
 
 }
