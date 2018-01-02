@@ -4,6 +4,8 @@ import pl.sdacademy.citizens.model.Animal;
 import pl.sdacademy.citizens.model.CsvFile;
 import pl.sdacademy.citizens.model.CsvLine;
 import pl.sdacademy.citizens.model.Person;
+import pl.sdacademy.citizens.validation.PersonValidationRule;
+import pl.sdacademy.citizens.validation.ValidationRule;
 
 import java.io.File;
 import java.text.ParseException;
@@ -14,6 +16,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class PersonReader {
+
+    private ValidationRule personValidation;
+
+    public PersonReader() {
+        this.personValidation = new PersonValidationRule();
+    }
+
     public List<Person> readFromFile(File fileName) throws ParseException {
         return readFromFile(fileName, new ArrayList<>());
     }
@@ -32,28 +41,12 @@ public class PersonReader {
                     .birthDate(csvLine.getElementAt(4))
                     .animals(animalsByPersonId.getOrDefault(personId, new ArrayList<>()))
                     .build();
-            if (isValid(person)) {
+            if (personValidation.isValid(person)) {
                 persons.add(person);
             }
         }
         long stop = System.currentTimeMillis();
         System.out.println("Converted " + persons.size() + " in " + (stop - start) + " ms");
         return persons;
-    }
-
-    private boolean isValid(Person person) {
-        if (person.getName() == null || person.getName().length() <= 2) {
-            return false;
-        }
-        if (person.getLastName() == null || person.getLastName().length() <= 2) {
-            return false;
-        }
-        if (!("F".equals(person.getSex()) || "M".equals(person.getSex()))) {
-            return false;
-        }
-        if (person.getBirthDate().getTime() > System.currentTimeMillis()) {
-            return false;
-        }
-        return person.getAge() > 18;
     }
 }
