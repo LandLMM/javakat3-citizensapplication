@@ -12,6 +12,10 @@ public class CsvLine implements Iterable<String>  {
         this.elements = new ArrayList<>();
     }
 
+    public CsvLine(CsvLine csvLine) {
+        this.elements = new ArrayList<>(csvLine.getElements());
+    }
+
     /**
      * Appends current line with new value
      * @param value to be added
