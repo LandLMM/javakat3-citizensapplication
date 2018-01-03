@@ -1,6 +1,7 @@
 package pl.sdacademy.citizens;
 
 import pl.sdacademy.citizens.model.Person;
+import pl.sdacademy.citizens.model.PersonSummary;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -45,5 +46,9 @@ public class PersonListDecorator extends ArrayList<Person> {
 
     public List<Person> filterWithAtLeastTwoAnimals() {
         return stream().filter(person -> person.getAnimals().size() >= 2).collect(Collectors.toList());
+    }
+
+    public List<PersonSummary> getSummary() {
+        return stream().map(PersonSummary::new).collect(Collectors.toList());
     }
 }

@@ -2,6 +2,8 @@ package pl.sdacademy.citizens;
 
 import pl.sdacademy.citizens.model.Animal;
 import pl.sdacademy.citizens.model.Person;
+import pl.sdacademy.citizens.model.PersonSummary;
+import pl.sdacademy.citizens.validation.PersonSummaryWriter;
 
 import java.io.File;
 import java.text.ParseException;
@@ -30,11 +32,8 @@ public class CitizensApplication {
         List<Person> people = personReader.readFromFile(personFile, animals);
         PersonListDecorator personListDecorator = new PersonListDecorator(people);
 
-
-        Map<String, Long> nameSummary = personListDecorator.createNameSummary();
-        // sample: how to print results to the console
-//        for (Map.Entry<String, Long> nameCount : nameSummary.entrySet()) {
-//            System.out.println("There are " + nameCount.getValue() + " persons with name " + nameCount.getKey());
-//        }
+        List<PersonSummary> personSummary = personListDecorator.getSummary();
+        PersonSummaryWriter summaryWriter = new PersonSummaryWriter();
+        summaryWriter.writeToFile(new File("summary.csv"), personSummary);
     }
 }
