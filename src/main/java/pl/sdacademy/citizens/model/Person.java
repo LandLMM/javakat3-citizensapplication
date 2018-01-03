@@ -28,6 +28,16 @@ public class Person {
         age = (int) ((System.currentTimeMillis() - birthDate.getTime()) / YEAR_IN_MILLISECONDS);
     }
 
+    protected Person(Person person) {
+        id = person.getId();
+        name = person.getName();
+        lastName = person.getLastName();
+        sex = person.getSex();
+        birthDate = person.getBirthDate();
+        animals = new ArrayList<>(person.getAnimals());
+        age = person.getAge();
+    }
+
     public Long getId() {
         return id;
     }
