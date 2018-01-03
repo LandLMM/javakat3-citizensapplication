@@ -29,6 +29,7 @@ public class PersonReader {
     public List<Person> readFromFile(File fileName, List<Animal> animals) throws ParseException {
         Map<Long, List<Animal>> animalsByPersonId = new AnimalListDecorator(Optional.ofNullable(animals).orElseGet(ArrayList::new)).groupById();
         CsvFile csvLines = CsvFile.fromFile(fileName);
+        CsvFile rejectedPersons = new CsvFile();
         List<Person> persons = new ArrayList<>();
         long start = System.currentTimeMillis();
         for (CsvLine csvLine : csvLines) {
@@ -43,10 +44,16 @@ public class PersonReader {
                     .build();
             if (personValidation.isValid(person)) {
                 persons.add(person);
+            } else {
+                CsvLine rejectedLine = new CsvLine(csvLine);
+                rejectedLine.addElement(personValidation.validationMessage());
+                rejectedPersons.addLine(rejectedLine);
             }
         }
         long stop = System.currentTimeMillis();
-        System.out.println("Converted " + persons.size() + " in " + (stop - start) + " ms");
+        System.out.println(String.format("Converted %d in %d ms", persons.size(), (stop - start)));
+        rejectedPersons.toFile(new File("rejectedRecords.csv"));
+        System.out.println(String.format("Saved %d rejected records to %s", rejectedPersons.getLines().size(), "rejectedRecords.csv"));
         return persons;
     }
 }
