@@ -54,6 +54,14 @@ public class CsvLine implements Iterable<String>  {
         return csvLine;
     }
 
+    public String toTextLine() {
+        StringJoiner lineJoiner = new StringJoiner(",");
+        for (String lineElement : elements) {
+            lineJoiner.add(lineElement);
+        }
+        return lineJoiner.toString();
+    }
+
     @Override
     public Iterator<String> iterator() {
         return elements.iterator();
