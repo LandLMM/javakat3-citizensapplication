@@ -13,4 +13,9 @@ public class PersonSexRule implements ValidationRule {
         String personSex = Optional.ofNullable(person).map(Person::getSex).orElse("");
         return personSex.equalsIgnoreCase("F") || personSex.equalsIgnoreCase("M");
     }
+
+    @Override
+    public String validationMessage() {
+        return "sex must be F or M";
+    }
 }

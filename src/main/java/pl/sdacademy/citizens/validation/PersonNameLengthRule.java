@@ -12,4 +12,9 @@ public class PersonNameLengthRule implements ValidationRule {
         // długość tego "name". Jeżeli długość name jest większa od 2, to zwróć "true"
         return Optional.ofNullable(person).map(Person::getName).map(String::length).filter(length -> length > 2).isPresent();
     }
+
+    @Override
+    public String validationMessage() {
+        return "name must have at least 2 characters";
+    }
 }

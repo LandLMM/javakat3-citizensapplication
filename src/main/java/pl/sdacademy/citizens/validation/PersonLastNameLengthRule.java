@@ -9,4 +9,9 @@ public class PersonLastNameLengthRule implements ValidationRule {
     public boolean isValid(Person person) {
         return Optional.ofNullable(person).map(Person::getLastName).map(String::length).filter(length -> length > 2).isPresent();
     }
+
+    @Override
+    public String validationMessage() {
+        return "last name must have at least 2 characters";
+    }
 }

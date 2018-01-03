@@ -10,4 +10,9 @@ public class PersonAdultAgeRule implements ValidationRule {
         Integer personAge = Optional.ofNullable(person).map(Person::getAge).orElse(-1);
         return personAge >= 18;
     }
+
+    @Override
+    public String validationMessage() {
+        return "must be adult";
+    }
 }

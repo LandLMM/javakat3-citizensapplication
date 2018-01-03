@@ -4,4 +4,5 @@ import pl.sdacademy.citizens.model.Person;
 
 public interface ValidationRule {
     boolean isValid(Person person);
+    String validationMessage();
 }
