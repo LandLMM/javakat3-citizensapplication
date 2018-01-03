@@ -9,6 +9,7 @@ import java.util.List;
  * Contains information about whole CSV file
  */
 public class CsvFile implements Iterable<CsvLine> {
+    private final static String NEW_LINE = System.lineSeparator();
     private final List<CsvLine> lines;
 
     public CsvFile() {
@@ -52,12 +53,25 @@ public class CsvFile implements Iterable<CsvLine> {
             while ((readLine = bufferedReader.readLine()) != null) {
                 convertedFile.addLine(CsvLine.fromTextLine(readLine));
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return  convertedFile;
+    }
+
+    /**
+     * Attempts to save current instance of CSV file into a File
+     * @param outputLocation file that will be created.
+     */
+    public void toFile(File outputLocation) {
+        try (OutputStream outputStream = new FileOutputStream(outputLocation)) {
+            for (CsvLine line : lines) {
+                outputStream.write((line.toTextLine() + NEW_LINE).getBytes());
+                outputStream.flush();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
